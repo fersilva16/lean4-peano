@@ -17,17 +17,14 @@ def toDefaultNat : ℕ -> Nat
 instance : Repr ℕ where
   reprPrec n _ := repr (toDefaultNat n)
 
-def sum (x y : ℕ) : ℕ :=
-  match x with
-    | ℕ.zero => y
-    | ℕ.succ x' => sum x' (ℕ.succ y)
+def sum : ℕ -> ℕ -> ℕ
+  | ℕ.zero, y => y
+  | ℕ.succ x', y => sum x' (ℕ.succ y)
 
-def sub (x y : ℕ) : ℕ :=
-  match x, y with
-    | ℕ.succ x', ℕ.succ y' => sub x' y' 
-    | _, _ => x
+def sub : ℕ -> ℕ -> ℕ
+  | ℕ.succ x', ℕ.succ y' => sub x' y'
+  | x, _ => x
 
-def mult (x y : ℕ) : ℕ :=
-  match x, y with
-    | _, ℕ.succ y' => sum x (mult x y')
-    | _, _  => ℕ.zero
+def mult : ℕ -> ℕ -> ℕ
+  | x, ℕ.succ y' => sum x (mult x y')
+  | _, _ => ℕ.zero
