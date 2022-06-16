@@ -7,3 +7,8 @@ def sum (x y : ℕ) : ℕ :=
   match x with
     | ℕ.zero => y
     | ℕ.succ x' => sum x' (ℕ.succ y)
+
+def sub (x y : ℕ) : ℕ :=
+  match x, y with
+    | ℕ.succ x', ℕ.succ y' => sub x' y' 
+    | _, _ => x
