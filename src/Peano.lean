@@ -12,7 +12,7 @@ instance : OfNat ℕ n where
 
 def toDefaultNat : ℕ -> Nat
   | ℕ.zero => 0
-  | ℕ.succ n => toDefaultNat n
+  | ℕ.succ n => 1 + toDefaultNat n
 
 instance : Repr ℕ where
   reprPrec n _ := repr (toDefaultNat n)
