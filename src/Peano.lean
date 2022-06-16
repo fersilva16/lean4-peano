@@ -29,6 +29,15 @@ def mult : ℕ -> ℕ -> ℕ
   | x, ℕ.succ y' => sum x (mult x y')
   | _, _ => ℕ.zero
 
+def div : ℕ -> ℕ -> ℕ
+  | x, ℕ.succ y' => div' x y' 0 y'
+  | _, ℕ.zero => ℕ.zero
+  where
+    div' : ℕ -> ℕ -> ℕ -> ℕ -> ℕ
+      | ℕ.succ x', y, q, ℕ.zero => div' x' y (ℕ.succ q) y
+      | ℕ.succ x', y, q, ℕ.succ r' => div' x' y q r'
+      | ℕ.zero, _, q, _ => q
+
 def gt : ℕ -> ℕ -> Bool
   | ℕ.succ _, ℕ.zero => true 
   | ℕ.succ x', ℕ.succ y' => gt x' y'
