@@ -3,6 +3,20 @@ inductive ℕ where
   | succ : ℕ -> ℕ
   deriving Repr
 
+def fromDefaultNat : Nat -> ℕ
+  | 0 => ℕ.zero
+  | n + 1 => ℕ.succ (fromDefaultNat n)
+
+instance : OfNat ℕ n where
+  ofNat := fromDefaultNat n
+
+def toDefaultNat : ℕ -> Nat
+  | ℕ.zero => 0
+  | ℕ.succ n => toDefaultNat n
+
+instance : Repr ℕ where
+  reprPrec n _ := repr (toDefaultNat n)
+
 def sum (x y : ℕ) : ℕ :=
   match x with
     | ℕ.zero => y
