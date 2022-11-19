@@ -3,33 +3,33 @@ inductive ℕ where
   | succ : ℕ -> ℕ
   deriving Repr
 
-def fromDefaultNat : Nat -> ℕ
+def ℕ.fromDefaultNat : Nat -> ℕ
   | 0 => ℕ.zero
-  | n + 1 => ℕ.succ (fromDefaultNat n)
+  | n + 1 => ℕ.succ (ℕ.fromDefaultNat n)
 
 instance : OfNat ℕ n where
-  ofNat := fromDefaultNat n
+  ofNat := ℕ.fromDefaultNat n
 
-def toDefaultNat : ℕ -> Nat
+def ℕ.toDefaultNat : ℕ -> Nat
   | ℕ.zero => 0
-  | ℕ.succ n => 1 + toDefaultNat n
+  | ℕ.succ n => 1 + ℕ.toDefaultNat n
 
 instance : Repr ℕ where
-  reprPrec n _ := repr (toDefaultNat n)
+  reprPrec n _ := repr (ℕ.toDefaultNat n)
 
-def sum : ℕ -> ℕ -> ℕ
+def ℕ.sum : ℕ -> ℕ -> ℕ
   | ℕ.zero, y => y
-  | ℕ.succ x', y => sum x' (ℕ.succ y)
+  | ℕ.succ x', y => ℕ.sum x' (ℕ.succ y)
 
-def sub : ℕ -> ℕ -> ℕ
-  | ℕ.succ x', ℕ.succ y' => sub x' y'
+def ℕ.sub : ℕ -> ℕ -> ℕ
+  | ℕ.succ x', ℕ.succ y' => ℕ.sub x' y'
   | x, _ => x
 
-def mult : ℕ -> ℕ -> ℕ
-  | x, ℕ.succ y' => sum x (mult x y')
+def ℕ.mult : ℕ -> ℕ -> ℕ
+  | x, ℕ.succ y' => ℕ.sum x (ℕ.mult x y')
   | _, _ => ℕ.zero
 
-def div : ℕ -> ℕ -> ℕ
+def ℕ.div : ℕ -> ℕ -> ℕ
   | x, ℕ.succ y' => div' x y' 0 y'
   | _, ℕ.zero => ℕ.zero
   where
@@ -38,21 +38,21 @@ def div : ℕ -> ℕ -> ℕ
       | ℕ.succ x', y, q, ℕ.succ r' => div' x' y q r'
       | ℕ.zero, _, q, _ => q
 
-def gt : ℕ -> ℕ -> Bool
+def ℕ.gt : ℕ -> ℕ -> Bool
   | ℕ.succ _, ℕ.zero => true 
-  | ℕ.succ x', ℕ.succ y' => gt x' y'
+  | ℕ.succ x', ℕ.succ y' => ℕ.gt x' y'
   | _, _ => false
 
-def gte : ℕ -> ℕ -> Bool
+def ℕ.gte : ℕ -> ℕ -> Bool
   | ℕ.zero, ℕ.succ _ => false
-  | ℕ.succ x', ℕ.succ y' => gte x' y'
+  | ℕ.succ x', ℕ.succ y' => ℕ.gte x' y'
   | _, _ => true
 
-def lt (x y : ℕ) : Bool := not (gte x y)
+def ℕ.lt (x y : ℕ) : Bool := not (ℕ.gte x y)
 
-def lte (x y : ℕ) : Bool := not (gt x y)
+def ℕ.lte (x y : ℕ) : Bool := not (ℕ.gt x y)
 
-def eq : ℕ -> ℕ -> Bool
+def ℕ.eq : ℕ -> ℕ -> Bool
   | ℕ.zero, ℕ.zero => true
-  | ℕ.succ x', ℕ.succ y' => eq x' y'
+  | ℕ.succ x', ℕ.succ y' => ℕ.eq x' y'
   | _, _ => false
