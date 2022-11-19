@@ -21,12 +21,12 @@ instance : Repr ℕ where
 -- ℕ.succ (ℕ.succ (ℕ.succ (ℕ.succ ℕ.zero))) == 4
 -- ℕ.succ (ℕ.succ (ℕ.succ (ℕ.succ (ℕ.succ ℕ.zero)))) == 5
 
-def ℕ.sum : ℕ -> ℕ -> ℕ
+def ℕ.add : ℕ -> ℕ -> ℕ
   | ℕ.zero, y => y
-  | ℕ.succ x', y => ℕ.sum x' (ℕ.succ y)
+  | ℕ.succ x', y => ℕ.add x' (ℕ.succ y)
 
-#eval ℕ.sum 5 12 -- 17
-#eval ℕ.sum 19 4 -- 23
+#eval ℕ.add 5 12 -- 17
+#eval ℕ.add 19 4 -- 23
 
 def ℕ.sub : ℕ -> ℕ -> ℕ
   | ℕ.succ x', ℕ.succ y' => ℕ.sub x' y'
@@ -36,7 +36,7 @@ def ℕ.sub : ℕ -> ℕ -> ℕ
 #eval ℕ.sub 9 5 -- 4
 
 def ℕ.mult : ℕ -> ℕ -> ℕ
-  | x, ℕ.succ y' => ℕ.sum x (ℕ.mult x y')
+  | x, ℕ.succ y' => ℕ.add x (ℕ.mult x y')
   | _, _ => ℕ.zero
 
 #eval ℕ.mult 9 3 -- 27
@@ -88,7 +88,7 @@ def ℕ.lte (x y : ℕ) : Bool := not (ℕ.gt x y)
 #eval ℕ.lte 1 1 -- true
 #eval ℕ.lte 5 0 -- false
 
-infixl:60 " +' " => ℕ.sum
+infixl:60 " +' " => ℕ.add
 infixl:60 " -' " => ℕ.sub
 infixl:70 " *' " => ℕ.mult
 infixl:70 " /' " => ℕ.div
