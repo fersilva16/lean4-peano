@@ -56,3 +56,25 @@ def ℕ.eq : ℕ -> ℕ -> Bool
   | ℕ.zero, ℕ.zero => true
   | ℕ.succ x', ℕ.succ y' => ℕ.eq x' y'
   | _, _ => false
+
+infixl:60 " +' " => ℕ.sum
+infixl:60 " -' " => ℕ.sub
+infixl:70 " *' " => ℕ.mult
+infixl:70 " /' " => ℕ.div
+infix:50 " >' " => ℕ.gt
+infix:50 " >=' " => ℕ.gte
+infix:50 " <' " => ℕ.lt
+infix:50 " <=' " => ℕ.lte
+infix:50 " ==' " => ℕ.eq
+
+#eval ℕ.succ ℕ.zero +' ℕ.succ ℕ.zero
+#eval ℕ.succ ℕ.zero +' ℕ.succ ℕ.zero -' ℕ.succ ℕ.zero
+#eval ℕ.succ (ℕ.succ ℕ.zero) -' ℕ.succ ℕ.zero
+#eval ℕ.succ (ℕ.succ ℕ.zero) *' ℕ.succ (ℕ.succ ℕ.zero)
+#eval ℕ.succ (ℕ.succ ℕ.zero) /' ℕ.succ ℕ.zero
+#eval ℕ.succ (ℕ.succ ℕ.zero) >' ℕ.succ ℕ.zero
+#eval ℕ.succ (ℕ.succ ℕ.zero) >=' ℕ.succ (ℕ.succ ℕ.zero)
+#eval ℕ.succ ℕ.zero <' ℕ.succ (ℕ.succ ℕ.zero)
+#eval ℕ.succ (ℕ.succ ℕ.zero) <=' ℕ.succ (ℕ.succ ℕ.zero)
+#eval ℕ.succ (ℕ.succ ℕ.zero) ==' ℕ.succ (ℕ.succ ℕ.zero)
+#eval ℕ.succ (ℕ.succ ℕ.zero) ==' 2
