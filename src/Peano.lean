@@ -38,24 +38,39 @@ def ℕ.div : ℕ -> ℕ -> ℕ
       | ℕ.succ x', y, q, ℕ.succ r' => div' x' y q r'
       | ℕ.zero, _, q, _ => q
 
+def ℕ.eq : ℕ -> ℕ -> Bool
+  | ℕ.zero, ℕ.zero => true
+  | ℕ.succ x', ℕ.succ y' => ℕ.eq x' y'
+  | _, _ => false
+
+#eval ℕ.eq 7 7 -- true
+#eval ℕ.eq 1 4 -- false
+
 def ℕ.gt : ℕ -> ℕ -> Bool
   | ℕ.succ _, ℕ.zero => true 
   | ℕ.succ x', ℕ.succ y' => ℕ.gt x' y'
   | _, _ => false
 
-def ℕ.gte : ℕ -> ℕ -> Bool
-  | ℕ.zero, ℕ.succ _ => false
-  | ℕ.succ x', ℕ.succ y' => ℕ.gte x' y'
-  | _, _ => true
+#eval ℕ.gt 2 1 -- true
+#eval ℕ.gt 5 5 -- false
 
-def ℕ.lt (x y : ℕ) : Bool := not (ℕ.gte x y)
+def ℕ.lt : ℕ -> ℕ -> Bool
+  | ℕ.zero, ℕ.succ _ => true
+  | ℕ.succ x', ℕ.succ y' => ℕ.lt x' y'
+  | _, _ => false
+
+#eval ℕ.lt 4 6 -- true
+#eval ℕ.lt 1 1 -- false
+
+def ℕ.gte (x y : ℕ) : Bool := not (ℕ.lt x y)
+
+#eval ℕ.gte 2 2 -- true
+#eval ℕ.gte 5 7 -- false
 
 def ℕ.lte (x y : ℕ) : Bool := not (ℕ.gt x y)
 
-def ℕ.eq : ℕ -> ℕ -> Bool
-  | ℕ.zero, ℕ.zero => true
-  | ℕ.succ x', ℕ.succ y' => ℕ.eq x' y'
-  | _, _ => false
+#eval ℕ.lte 1 1 -- true
+#eval ℕ.lte 5 0 -- false
 
 infixl:60 " +' " => ℕ.sum
 infixl:60 " -' " => ℕ.sub
