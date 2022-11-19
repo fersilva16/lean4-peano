@@ -17,17 +17,30 @@ def ℕ.toDefaultNat : ℕ -> Nat
 instance : Repr ℕ where
   reprPrec n _ := repr (ℕ.toDefaultNat n)
 
+-- ℕ.succ (ℕ.succ (ℕ.succ ℕ.zero)) == 3
+-- ℕ.succ (ℕ.succ (ℕ.succ (ℕ.succ ℕ.zero))) == 4
+-- ℕ.succ (ℕ.succ (ℕ.succ (ℕ.succ (ℕ.succ ℕ.zero)))) == 5
+
 def ℕ.sum : ℕ -> ℕ -> ℕ
   | ℕ.zero, y => y
   | ℕ.succ x', y => ℕ.sum x' (ℕ.succ y)
+
+#eval ℕ.sum 5 12 -- 17
+#eval ℕ.sum 19 4 -- 23
 
 def ℕ.sub : ℕ -> ℕ -> ℕ
   | ℕ.succ x', ℕ.succ y' => ℕ.sub x' y'
   | x, _ => x
 
+#eval ℕ.sub 8 2 -- 6
+#eval ℕ.sub 9 5 -- 4
+
 def ℕ.mult : ℕ -> ℕ -> ℕ
   | x, ℕ.succ y' => ℕ.sum x (ℕ.mult x y')
   | _, _ => ℕ.zero
+
+#eval ℕ.mult 9 3 -- 27
+#eval ℕ.mult 6 4 -- 18
 
 def ℕ.div : ℕ -> ℕ -> ℕ
   | x, ℕ.succ y' => div' x y' 0 y'
@@ -37,6 +50,9 @@ def ℕ.div : ℕ -> ℕ -> ℕ
       | ℕ.succ x', y, q, ℕ.zero => div' x' y (ℕ.succ q) y
       | ℕ.succ x', y, q, ℕ.succ r' => div' x' y q r'
       | ℕ.zero, _, q, _ => q
+
+#eval ℕ.div 21 7 -- 3
+#eval ℕ.div 30 3 -- 10
 
 def ℕ.eq : ℕ -> ℕ -> Bool
   | ℕ.zero, ℕ.zero => true
